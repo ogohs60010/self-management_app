@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title th:text="${title}"></title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<link th:herf="@{/app_sample/src/main/resources/templates/Output.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css}">
+	<link rel="stylesheet" th:href="@{/resources/demos/style.css}">
+	<script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+	<script th:src="@{https://code.jquery.com/ui/1.13.2/jquery-ui.js}"></script>
+	<script>
+		$(function() {
+			$("#tabs").tabs();
+		});
+	</script>
+</head>
+<body class="container">
+	<h1 class="display_aggregation" th:text="${title}"></h1>
+	<form th:action="@{/admin_controller/user}" method="post">
+		<div class="select_user">
+	    	<select id="user" name="user"  onchange="submit()">
+	        	<option th:each="user : ${UserList}" th:value="${user}" th:selected="${user == userName}">
+	            	<span th:text="${user}"></span>
+	        	</option>
+	    	</select>
+	    	<p th:text="${text_user}+さんのデータ"></p>
+		</div>
+	</form>
+	<div class="Graph">
+	<form th:action="@{/admin_controller/name}" method="post">
+    	<div class="select">
+        	<select id="variable" name="variable"  onchange="submit()">
+            	<option th:each="data : ${variableList}" th:value="${data}" th:selected="${data == NumName}">
+                	<span th:text="${data}"></span>
+            	</option>
+        	</select>
+    	</div>
+
+	</form>
+	<div class="input_structure">
+		<div id="tabs">
+			<ul>
+				<li>
+					<a href="#tabs-1" name="year_tag">year</a>
+					
+				</li>
+				<li>
+					<a href="#tabs-2" name="month_tag">month</a>
+				</li>
+			</ul>
+    			<input type="hidden" name="selected_tag" id="selected_tag" value="">
+    			<div id="tabs-1"class="tabs">
+        			<form id="myForm" th:action="@{/admin_controller/year}" method="post">
+        			<p>
+						<input type="number" name="year" min="1920" th:max="${now_year}" th:value="${year}">
+						<input type="submit">
+					</p>
+        			</form>
+    			</div>
+    			<div id="tabs-2"class="tabs">
+        			<form id="myForm" th:action="@{/admin_controller/month}" method="post">					
+        			<p>
+						<input type="month" name="month" min="1920-01" th:max="${now_month}" th:value="${month}">
+						<input type="submit">
+						
+					</p>
+        			</form>
+    			</div>
+		</div>
+	</div>
+	<div class="output_structure">
+		<canvas class="chart" id="myChart"></canvas>
+		<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js}"></script>
+<script th:inline="javascript">
+			var datasets = [];
+			
+			var name_lists = /*[[${NameList}]]*/;
+			var init_list = /*[[${DataList}]]*/;
+			var colorList = ["#ffff00", "#80ff00", "#00ff00", "#00ff80", "#00ffff", "#0080ff", "#0000ff", "#8000ff", "#ff00ff", "#ff0080","#ff0000", "#ff8000"];
+			var ctx = document.getElementById("myChart");
+			
+			
+			for (var i = 0; i < name_lists.length; i++) {
+                var l = i % 12;
+                datasets.push({
+                  label: name_lists[i],
+                  data: init_list[i],
+                  borderColor: colorList[l],
+                  backgroundColor: "rgba(0,0,0,0)"
+                });
+              }
+			var myLineChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: /*[[${Dates}]]*/,
+					datasets:datasets
+				},
+				options: {
+					title: {
+						display: true,
+						text: /*[[${answer}]]*/
+					},
+					scales: {
+						yAxes: [{
+							ticks: {
+								suggestedMax: /*[[${max}]]*/,
+								suggestedMin: 0,
+								stepSize: 10,
+								callback: function(value, index, values) {
+									return value;
+								}
+							}
+						}]
+					},
+				}
+			});
+		</script>
+	</div>
+	</div>
+    <form th:action="@{/admin_controller/message}" method="post">
+    <div class="data_user_select">
+		<p th:text="${text_user}+さんへのメッセージ"></p>
+		<p>メッセージ入力欄</p>
+		<textarea name="message"></textarea>
+        <input type="submit" text="送信">
+        <small th:text="${submit_message}"></small>
+	</div>
+    </form>
+		<div class="coment">
+		    <table border="3" bordercolor= "#aaa" width="100%">
+				<thead>
+					<tr>
+						<th class="th_a">履歴時刻</th>
+						<th class="th_b">送り先</th>
+						<th class="th_c">メッセージ</th>
+					</tr>
+				</table>
+					<div class=tbody_coment>
+				<table border="3" bordercolor= "#aaa" width="100%">
+					<tr th:each="message,messageStat:${messages_output}">
+						<td class="td_a" th:text="*{messages_output[__${messageStat.index}__].Date}"></td>
+						<td class="td_b" th:text="*{messages_output[__${messageStat.index}__].user}"></td>
+						<td class="td_c" th:text="*{messages_output[__${messageStat.index}__].message}"></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<p>
+			<button type="button" onclick="location.href='/'">home menuへ</button>
+    		<button type="button" onclick="location.href='/appmenu'">app menuへ</button>		
+		</p>
+	 
+
+</body>
+</html>
+<style>
+	:root{
+		--back_color:#dcdcdc;
+	}
+    /* ページ全体のスタイル */
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #000;
+        color: #fff;
+    }
+	h1{
+		background-color: #53BF49
+	}
+    /* ヘッダー部分 */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .display_aggregation {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    /* ユーザー選択欄 */
+    .select_user,
+    .Graph {
+		color:#000;
+        background-color: var(--back_color);
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .select_user p {
+        font-size: 18px;
+    }
+
+    /* グラフ選択欄 */
+    .select {
+        margin-bottom: 20px;
+    }
+
+    /* タブスタイル */
+    #tabs {
+        background-color: #aaa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-color :#000;
+    }
+
+    #tabs ul {
+		background-color:#000;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #tabs li {
+        display: inline-block;
+        margin-right: 20px;
+        
+    }
+
+    #tabs a {
+        text-decoration: none;
+        color: #000;
+        font-size: 18px;
+    }
+
+    #tabs a:hover {
+        color: #0066cc;
+    }
+
+    /* テーブルスタイル */
+    .coment {
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: var(--back_color);
+        overflow-x: auto;
+        color:#000;
+    }
+
+    .coment table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+	.coment .th_a,.coment .td_a {
+  		width: 200px;
+  		
+	}
+	.coment .th_b,.coment .td_b {
+  		width: 50px;
+  		
+	}
+	.coment .th_c,.coment .td_c{
+  		width: var(--width_td);
+  	}
+    .coment th,
+    .coment td {
+        border: 2px solid #000;
+        padding: 8px;
+    }
+    .coment .tbody_coment {
+		width:auto;
+		height:150px;
+		overflow: auto;
+	}
+
+    /* メッセージ入力欄 */
+    .data_user_select {
+        background-color: #006600;
+        padding: 20px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+    }
+
+    .data_user_select textarea {
+        width: 95%;
+        height: 100px;
+        padding: 10px;
+        resize: none;
+    }
+
+    .data_user_select input[type="submit"] {
+        background-color: #fff;
+        color: #006600;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    /* ボタンスタイル */
+    button {
+        background-color: #0066cc;
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #0052a3;
+    }
+</style>

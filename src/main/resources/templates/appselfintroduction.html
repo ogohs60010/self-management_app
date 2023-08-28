@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>プロフィール</title>
+	<meta http-equiv="Content-Type"
+		content="text/html;charset=UTF-8"/>
+	<link th:herf="@{/css/self.css}" rel="stylesheet">
+</head>
+<body class="self">
+    <div class="all">
+        <h2>自己紹介</h2>
+        <div class="self-profile">
+            <div class="personal">
+                <img th:src="@{/images/01.JPG}"></img>
+                <p><strong>name:</strong>長岡昇吾</p>
+                <p><strong>e-mail:</strong>ogohs121@gmail.com</p>
+            </div>
+
+            <div class="profile">
+                <p></p>
+                <div class="PR">
+                    <h3><string>自己PR</string></h3>
+                    <p>
+                        大学では応用化学の勉強を行い、後に社会に出て、ADHDの傾向があることがわかりました。</p>
+                    <p>
+                        就労移行を使って転職することを決意し現在Java、Rustを趣味で行いながら初心者エンジニアとして就職活動中です。
+                    </p>
+                    </div>
+    
+                    <div class="tastes">
+                        <h3><string>趣味</string></h3>
+                        <ul>
+                            <li>
+                                ゲーム(RPGなど)
+                            </li>
+                            <li>
+                                stable Diffusionによる画像生成
+                            </li>
+                            <li>
+                                RustやPythonを使用してプログラミング(現在tauriが気になっています。)
+                            </li>
+                        </ul>
+                    </div>
+                <div class="table1">
+                    <table border="3" bordercolor= "#4b0082" class="qualifications" >
+                        <caption class="qualifications-title"><b>保有資格</b></caption>
+                        <tr>
+                            <td>資格名</td><td>取得日(dd/mm/yyyy)</td>
+                        </tr>
+                        <tr>
+                            <td>Python3基礎認定試験</td><td>1/19/2023</td>
+                        </tr>
+                        <tr>
+                            <td>Excel VBA Basic</td><td>3/30/2023</td>
+                        </tr>
+                        <tr>
+                            <td>Oracle java Bronze</td><td>5/19/2023</td>
+                        </tr>
+                    </table>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <button type=“button” onclick="location.href='/'">home menuへ</button>
+</body>
+</html>
+<style>
+	    *{
+    margin:0;
+    padding:0;
+    }
+    .all{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    }
+    img{
+        width: 200px;
+        height:250px;
+        object-fit: cover;
+        margin: auto;
+        display: block;
+
+    }
+    h2{
+        background-color: #160a57;
+    }
+    .self{
+        background-color: black;
+        color:rgb(255, 255, 255);
+
+    }
+    .self-profile{
+        background-color: #222;
+        display: flex;
+        flex-direction: row;   
+        column-gap:10px;     
+    }
+    .profile{
+        font-size: 100%;
+        width:auto;
+        height:auto;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        row-gap:10px;
+    }
+    h3{
+        font-family:monospace ;
+        font-style: normal;
+        font-size: large;
+        font-weight: bold;
+        word-spacing: 1%;
+        text-shadow: 0.5px 0.5px 0.5px #928fbc,1px 1px 1px #2d14bc;
+        color:#70bde6;
+    }
+    .PR{
+        width:600px;
+        height: auto;
+        padding:10px;
+        background-image: repeating-linear-gradient(-45deg,#000,#002003 5px, #013f07  5px, #005609 7px);   
+        outline-style: solid;
+        outline-color: #03aa14;
+        outline-width: 0.5px;
+
+    }
+    .tastes{
+        width:600px;
+        height: auto;
+        padding:10px;
+        background-image: repeating-linear-gradient(-45deg,#000,#002003 5px, #013f07  5px, #005609 7px);
+        outline-style: solid;
+        outline-color: #03aa14;
+        outline-width: 0.5px;
+        
+    }
+    ul{
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .qualifications{
+        width:600px;
+        table-layout: fixed;
+        border-collapse:separate;
+        background-color: #000;
+    }
+    caption{
+        text-align: left;
+        font-family:monospace ;
+        font-style: normal;
+        font-size: large;
+        font-weight: bold;
+        word-spacing: 1%;
+        text-shadow: 0.5px 0.5px 0.5px #928fbc,1px 1px 1px #2d14bc;
+        color:#70bde6;
+    }
+    .table1{
+        width: 600px;
+        padding:10px;
+        background-image: repeating-linear-gradient(-45deg,#000,#002003 5px, #013f07  5px, #005609 7px);   
+        outline-style: solid;
+        outline-color: #03aa14;
+        outline-width: 0.5px;
+
+    }
+
+</style>

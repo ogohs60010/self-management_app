@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inputpage</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+	<h2 th:text="${title}"></h2>
+	<div class="box">
+    
+    <p>
+        日数と管理用の値を入力してください
+    </p>
+	    <form th:action="@{/app/PhysicalConditionInput/decide}" method="post">
+			<input type="date" th:name="serch_date" th:value="${dateTime}" onchange="submit()" th:max="${now}"/>
+	    </form>
+    <form th:action="@{/app/PhysicalConditionInput/send}" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>変数名</th>
+                    <th>変数</th>
+                </tr>
+            </thead>
+            <tbody th:object="${ManagementList}">
+                <tr th:each="data, dataStat: *{managementList}">
+                    <td><input type="hidden" th:text="*{managementList[__${dataStat.index}__].NumName}" th:field="*{managementList[__${dataStat.index}__].NumName}"></td>
+                    <td>
+						<input type="number" th:field="*{managementList[__${dataStat.index}__].NumInit}" th:min="*{managementList[__${dataStat.index}__].min}" th:max="*{managementList[__${dataStat.index}__].max}"  />
+                    	<input type="hidden" th:text="*{managementList[__${dataStat.index}__].min}" th:field="*{managementList[__${dataStat.index}__].min}">
+                    	~
+                    	<input type="hidden" th:text="*{managementList[__${dataStat.index}__].max}" th:field="*{managementList[__${dataStat.index}__].max}">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class ="bottan_submit">
+        <input type="submit" value="送信" name="send"/>
+        </div>
+        <p th:text="${sendmessage}"></p>
+    </form>
+    <div class="bottans">
+	<button type=“button” onclick="location.href='/'">home menuへ</button>
+	<button type=“button” onclick="location.href='/appmenu'">app menuへ</button>	
+	</div>
+	</div>
+</body>
+</html>
+<style>
+			body{
+				background-color: #000;
+				color: #fff;
+				pogition:relative;
+				
+			}
+			.box{
+				border-top: solid 5px #53BF49;
+				background-color: #333;
+				position:absolute;
+				top:200px;
+				left: 0;
+				right:0;
+				width:300px;
+				height:auto;
+				margin:auto;
+			}
+			h2{
+				text-align: center;
+				background-color: #53BF49;
+				position:absolute;
+				left: 0;
+				right:0;
+			}
+			.table_input{
+				padding:10px;
+				background-color: #363636;
+			}
+	       input[type="submit"] {
+            background-color: #fff;
+            color: #0066cc;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+           
+
+        }
+		input[type="submit"]:hover {
+            background-color: #dadada;
+        }
+        /* ホームボタン */
+        button {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 50px;
+            
+                
+        }
+        button:hover {
+            background-color: #004c99;
+        }
+        .bottan_submit{
+			position:absolute;
+            bottom:50px;
+			left:0;
+		}
+        
+</style>
