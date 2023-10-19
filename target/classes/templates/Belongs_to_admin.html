@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inputpage</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+	<h2>・Team登録</h2>
+    <ul th:each="data: ${admins}">
+	    <li>
+	        <p><small th:text="*{data} + 'へ登録'"></small></p>
+    		<div th:if="${Registr != null and Registr.contains(data)}" class="colorbox">
+    			<p>登録中<p>
+    		</div>
+	        <map>
+			<a th:href="'/BelongsTo/'+*{data}" class="resizeimage">
+	            <input type="image" th:src="@{'/images/' + *{data} + '.jpg'}" alt="'send'+ *{data}">
+	         </a>
+	        </map>
+	    </li>
+    </ul>
+</body>
+</html>
+<style>
+	body{
+		background-color: black;
+		color: white;
+	}
+	h2{
+		background-color:#53BF49;
+	}
+	.resizeimage input { 
+		width: 100%;
+		 }
+	.colorbox p{
+		border:3px solid white;
+		text-align: center;	
+		color:blue;
+		font-family:'Impact',sans-serif;
+		font-size: 20px;
+	}
+</style>

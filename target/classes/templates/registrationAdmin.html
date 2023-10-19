@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登録画面</title>
+</head>
+<body　class="container">
+	<div class="registration_box">
+		<small class="page_name" th:text="${title}"></small>
+		<h1 class="page_name">登録画面</h1>
+		<div class="pass_form">
+			<p th:text="${msg}"></p>
+	   		<form th:action="@{/admin/addres/x/registrationadmin}" method="post">
+	        	<div class="mb-3">
+	            	<label for="username">Username:</label>
+	            	<input type="text" id="username" name="username" required>
+	        	</div>
+	        	<div class="mb-3">
+	            	<label for="password">Password:</label>
+	            	<input type="password" id="password" name="password" required>
+	        	</div>
+	        	<div class="mb-3">
+	            	<input type="submit" value="Register">
+	        	</div>
+	    	</form>
+		</div>
+		<button type=“button” onclick="location.href='/'">home menuへ</button>
+	</div>
+</body>
+</html>
+<style>
+	body{
+		background-color: black;
+		color: white;
+		pogition:relative;
+	}
+	.page_name{
+		font-style:oblique;
+		color:aqua;
+	}
+	.registration_box{
+		position:absolute;
+		top:0;
+		right: 0;
+		bottom:0;
+		left:0;
+		width:	300px;
+		height:350px;
+		margin: auto;
+		background-color: #343434;
+		padding:0.5em 1em;
+		color: rgb(255, 255, 255);
+    	border-top: solid 5px #546995;
+    	box-shadow: 0 3px 5px rgba(255, 255, 255, 0.4);
+
+	}
+	.pass_form{
+		position: absolute;
+		margin:auto;
+		
+	}
+	        input[type="submit"] {
+            background-color: #fff;
+            color: #0066cc;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        	position: relative;
+        	top:10px;
+        	left:70%;
+        }
+		input[type="submit"]:hover {
+            background-color: #dadada;
+        }
+        /* ホームボタン */
+        button {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            position:absolute;
+			bottom: 0;
+			left: 0;
+			right:0;	
+           
+        }
+
+        button:hover {
+            background-color: #004c99;
+        }
+</style>

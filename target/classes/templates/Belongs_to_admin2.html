@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inputpage</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+	<h1 th:text="${data}+'への登録画面'"></h1>
+	<div>
+		<map class="resizeimage">
+			<img th:src="@{'/images/' + ${data} + '.jpg'}">
+		</map>
+		<p></p>
+		<small th:text ="${data}+'のロゴ'" ></small>
+		<table border="3" bordercolor= "#fff" class="table_data">
+			<thead>
+				<td>teamname</td>
+				<td>所属人数</tr>
+			</thead>
+			<tbody>
+				<td><a th:text="${data}"></td>
+				<td><a th:text="${number}"></td>
+			</tbody>
+		</table>
+		<p th:text="${msg}"></p>
+		<form th:action="@{'/BelongsTo/'+ ${data}+'/Belong'}" method="post">
+			<input th:if="!${bool_user}" type = "submit" value="登録する"th:name="Belong">
+		</form>
+		<form th:action="@{'/BelongsTo/'+ ${data}+'/Delete'}" method="post">
+			<input th:if="${bool_user}" type = "submit" value="削除する" th:name="Delete">			
+		</form>
+	</div>
+
+</body>
+</html>
+<style>
+	body{
+		background-color: black;
+		color: white;
+	}
+	h1{
+		background-color:#53BF49;
+		
+	}
+	.resizeimage img { width: 100%; }
+	.table_data{
+		background-color: #bbb;
+		color:black;
+		padding:10px;
+		border-radius: 5px 5px 5px 5px;
+	}
+	        input[type="submit"] {
+            background-color: #fff;
+            color: #0066cc;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+		input[type="submit"]:hover {
+            background-color: #dadada;
+        }
+</style>

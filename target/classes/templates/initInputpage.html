@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IntInputpage</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+	<div class="box">
+    <h2 th:text="${title}"></h2>
+    <p th:text="${msg}"></p>
+    
+    <p>以下にアプリに設定したい値の名前の入力と最大値最小値を入力してください</p>
+    <form th:action="@{/app/initInputpage/input}" method="post">
+        <div class="table_input">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>変数名</th>
+                        <th>最小値</th>
+                        <th>最大値</th>
+                        <th>削除</th>
+                    </tr>	
+                </thead>
+                <tbody th:object="${NumList}">
+                    <tr th:each="data, dataStat: *{ListNumName}">
+                        <td>
+                            <input type="hidden" th:text="*{ListNumName[__${dataStat.index}__].id}" th:field="*{ListNumName[__${dataStat.index}__].id}">
+                        </td>
+                        <td><input type="text" th:field="*{ListNumName[__${dataStat.index}__].numName}" required></td>
+                        <td><input type="number" th:field="*{ListNumName[__${dataStat.index}__].min}" required></td>
+                        <td><input type="number" th:field="*{ListNumName[__${dataStat.index}__].max}" required></td>
+                        <td>
+
+							<form th:action="@{/app/initInputpage/delete}" method="post">
+								<th:block th:if="${data.id != '1'}">
+						            <input type="hidden" th:value="${data.id}" th:name="deleteId">
+						            <input type="submit" value="Delete"/>
+						        </th:block>
+						        <th:block th:unless="${data.id != '1'}">
+									<font color="red"><small >削除不可</small></font>
+								</th:block>
+						    </form>
+                        </td>
+                    </tr>
+                    <tr class="new_input">
+                        <td>new</td>
+                        <td><input type="text" id="new_name" name="new_name"></td>
+                        <td><input type="number" id="new_min" name="new_min"></td>
+                        <td><input type="number" id="new_max" name="new_max"></td>
+                      
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button_submit">
+        		<input type="submit" value="送信"  th:name="input" />
+    		</div>
+    	</div>
+    </form>
+    <div class="bottans">
+	<button type="button" onclick="location.href='/'">home menuへ</button>
+    <button type="button" onclick="location.href='/appmenu'">app menuへ</button>	
+	</div>
+    
+</div>
+</body>
+</html>
+<style>
+			body{
+				background-color: #000;
+				color: #fff;
+				pogition:relative;
+				
+			}
+			.box{
+				position:absolute;
+				top:0;
+				left: 0;
+				right:0;
+				width:650px;
+				height:450px;
+				margin:auto;
+			}
+			h2{
+				text-align: center;
+				background-color: #53BF49;
+				position:absolute;
+				left: 0;
+				right:0;
+			}
+			.table_input{
+				padding:10px;
+				background-color: #363636;
+			}
+	       input[type="submit"] {
+            background-color: #fff;
+            color: #0066cc;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+           
+
+        }
+		input[type="submit"]:hover {
+            background-color: #dadada;
+        }
+        
+        /* ホームボタン */
+        button {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 50px;
+            
+                
+        }
+        button:hover {
+            background-color: #004c99;
+        }
+        .bottan_submit{
+			position:absolute;
+            bottom:0;
+			left:0;
+		}
+        @keyframes new_color{
+			100%{color:red;}
+			0%{color:white;}
+		}
+        .new_input{
+			animation: new_color 1s infinite;
+		}
+</style>

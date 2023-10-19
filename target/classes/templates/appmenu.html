@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<ul>
+		<div class="menu_box" th:if=${login_user}>
+			<h2>アプリ一覧</h2>
+			<ol class="menu_list">
+				<li>
+					<a href="app/initInputpage">体調管理用値管理シート</a>
+				</li>
+				<li>
+					<a href="app/PhysicalConditionInput">体調管理入力</a>
+				</li>
+				<li>
+					<a href="app/PhysicalConditionOutput">体調管理出力</a>
+				</li>
+				<li>
+					<a href="/BelongsTo">team登録</a>
+				</li>
+				<li>
+					<a href="/changepass"> パスワードの変更</a>
+				</li>	
+			</ol>
+			<form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+       </form>
+       <button type="button" onclick="location.href='/'">home menuへ</button>
+		</div>
+		<div class="menu_box" th:if="${login}">
+			<h2>ADMIN用</h2>
+			<ol class="menu_list">
+				<li>
+					<a href="/admin_controller">管理用画面	
+				</li>
+				<li>
+					<a href="/changepass"> パスワードの変更</a>
+				</li>
+			</ol>
+			<form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+       </form>
+       <button type="button" onclick="location.href='/'">home menuへ</button>
+		</div>
+	</ul>
+	 
+</body>
+</html>
+         
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            pogition:relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ヘッダー部分 */
+        header {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        h2{
+			background-color: #53BF49;
+			padding:10px;
+			text-align: center;
+			 border-radius: 0px 20px 0px 20px;
+			
+		}
+		ol{
+			width:auto;
+			height:250px;
+			overflow: auto;
+		}
+        /* メニューリスト */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066cc;
+            font-size: 18px;
+        }
+
+        a:hover {
+            color: #004c99;
+        }
+
+        /* ログアウトボタン */
+        form {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #fff;
+            color: #0066cc;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* ホームボタン */
+        button {
+            background-color: #0066cc;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #004c99;
+        }
+        .menu_box{
+		position:absolute;
+		top:0;
+		right: 0;
+		bottom:0;
+		left:0;
+		width:	300px;
+		height:400px;
+		margin: auto;
+		background-color: #343434;
+		padding:0.5em 1em;
+		color: rgb(255, 255, 255);
+    	box-shadow: 0 3px 5px rgba(255, 255, 255, 0.4);
+
+	}
+    </style>
